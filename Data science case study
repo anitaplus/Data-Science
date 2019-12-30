@@ -19,3 +19,27 @@ x=df[['sqft_living']]
 y=df['price']
 lm.fit(x,y)
 print('The R-square is: ', lm.score(x,y))
+sns.regplot(x='sqft_above',y='price',data=df,ci=None)
+plt.ylim(0,)
+def PlotPolly(model, independent_variable, dependent_variabble, Name):
+    x_new = np.linspace(15, 55, 100)
+    y_new = model(x_new)
+
+    plt.plot(independent_variable, dependent_variabble, '.', x_new, y_new, '-')
+    plt.title('Polynomial Fit with Matplotlib for Price ~ Sqft_Living')
+    ax = plt.gca()
+    ax.set_facecolor((0.898, 0.898, 0.898))
+    fig = plt.gcf()
+    plt.xlabel(Name)
+    plt.ylabel('Price of Home')
+
+    plt.show()
+    plt.close()
+    
+x = df['sqft_living']
+y = df['price']
+f = np.polyfit(x, y, 3)
+p = np.poly1d(f)
+print(p)
+PlotPolly(p, x, y, 'sqft_living')
+np.polyfit(x, y, 3)
