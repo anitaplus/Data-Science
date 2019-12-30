@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pylab as plt
+%matplotlib inline
+
+home_sale="https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/DA0101EN/coursera/project/kc_house_data_NaN.csv"
+df=pd.read_csv(home_sale)
+print(df.dtypes)
+df.dropna(subset=['price'],axis=0,inplace=True)
+df.describe()
+df['floors'].value_counts()
+df['floors'].value_counts().to_frame()
+import seaborn as sns
+%matplotlib inline 
+sns.boxplot(x='waterfront',y='price',data=df)
+from sklearn.linear_model import LinearRegression
+lm=LinearRegression()
+x=df[['sqft_living']]
+y=df['price']
+lm.fit(x,y)
+print('The R-square is: ', lm.score(x,y))
